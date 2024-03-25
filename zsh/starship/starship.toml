@@ -1,0 +1,21 @@
+format = """
+$time\
+$all\
+"""
+# right_format = """
+# $time
+# """
+
+[username]
+style_user = "blue bold"
+style_root = "purple bold italic"
+format = "[$user]($style) ▻ "
+disabled = false
+
+[time]
+disabled = false
+format = "[ $time ]($style)"
+time_format = "%T"
+utc_time_offset = "local"
+style = "dimmed white"
+
