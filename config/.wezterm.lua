@@ -5,6 +5,8 @@ local wezterm = require 'wezterm'
 local config = wezterm.config_builder()
 
 -- config.color_scheme = 'AdventureTime'
+-- config.color_scheme = 'Aci (Gogh)'
+config.color_scheme = 'Sonokai (Gogh)'
 
 config.font_size = 15.0
 config.font_dirs = {'.local/share/wezterm/fonts'}
