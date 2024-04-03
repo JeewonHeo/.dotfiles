@@ -164,3 +164,5 @@ preexec() {
   HOST="${OLDHOST}"
 }
 
+eval "$(starship init zsh)"
+export STARSHIP_CONFIG=/pad/jheo/.config/starship/starship.toml

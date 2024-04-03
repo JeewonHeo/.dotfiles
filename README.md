@@ -25,3 +25,7 @@ chmod u+x nvim.appimage
 cd - 
 ```
 
+## mamba
+```zsh
+"${SHELL}" <(curl -L https://micro.mamba.pm/install.sh)
+```
