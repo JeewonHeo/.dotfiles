@@ -25,7 +25,7 @@ opt.mouse =  ""
 opt.colorcolumn = "80"
 vim.g.markdown_recommended_style = 0
 vim.g.airline_theme = 'sonokai'
-vim.g.sonokai_style = 'atlantis'
+-- vim.g.sonokai_style = 'atlantis'
 vim.g.sonokai_better_performance = 1
 
 require("lazy").setup({{import = "plugins"}}, opts)
