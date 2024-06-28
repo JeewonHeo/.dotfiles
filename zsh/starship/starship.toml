@@ -2,15 +2,17 @@ format = """
 $time\
 $all\
 """
-# right_format = """
-# $time
-# """
 
 [username]
 style_user = "blue bold"
+# style_user = "bold orange"
 style_root = "purple bold italic"
-format = "[$user]($style) ▻ "
+# format = "[$user]($style) ▻ "
+format = "[$user]($style)"
 disabled = false
+
+[hostname]
+ssh_symbol = '@'
 
 [time]
 disabled = false
@@ -20,4 +22,9 @@ utc_time_offset = "local"
 style = "dimmed white"
 
 [directory]
+style = "bold cyan"
 truncation_length = -1
+truncate_to_repo = false
+
+[conda]
+style = 'dimmed green'
