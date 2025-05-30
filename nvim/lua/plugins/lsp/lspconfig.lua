@@ -77,7 +77,7 @@ return {
     })
 
     -- configure typescript server with plugin
-    lspconfig["tsserver"].setup({
+    lspconfig["ts_ls"].setup({
       capabilities = capabilities,
       on_attach = on_attach,
     })
@@ -168,5 +168,24 @@ return {
         },
       },
     })
+		require('lspconfig').lua_ls.setup({
+    settings = {
+      Lua = {
+        workspace = {
+          checkThirdParty = false,
+          library = {
+            vim.env.VIMRUNTIME,
+            "${3rd}/luv/library",
+            "${3rd}/busted/library",
+            -- 여기에 너가 사용 중인 루트 경로들만 넣어
+            "/users/jheo/.config/nvim",
+          },
+          maxPreload = 1000,
+          preloadFileSize = 500,
+        },
+        telemetry = { enable = false },
+      }
+    }
+}  )
   end,
 }
