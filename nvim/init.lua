@@ -1,13 +1,13 @@
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
 if not vim.loop.fs_stat(lazypath) then
-  vim.fn.system({ 
-		"git",
-		"clone",
-		"--filter=blob:none",
-		"https://github.com/folke/lazy.nvim.git",
-		"--branch=stable",
-		lazypath,
-	})
+  vim.fn.system({
+    "git",
+    "clone",
+    "--filter=blob:none",
+    "https://github.com/folke/lazy.nvim.git",
+    "--branch=stable",
+    lazypath,
+  })
 end
 vim.opt.rtp:prepend(lazypath)
 
@@ -27,12 +27,11 @@ opt.smartcase = true -- Don't ignore case with capitals
 opt.smartindent = true -- Insert indents automatically
 opt.ignorecase = true -- Ignore case
 opt.spelllang = { "en" }
-opt.mouse =  ""
+opt.mouse = ""
 opt.colorcolumn = "100"
 
 vim.opt.swapfile = false
 vim.g.markdown_recommended_style = 0
-vim.g.airline_theme = 'sonokai'
 vim.g.sonokai_better_performance = 1
 
 vim.api.nvim_create_autocmd("BufReadPost", {
@@ -57,4 +56,4 @@ vim.g.clipboard = {
     ['*'] = function() return vim.fn.getreg('*') end,
   },
 }
-require("lazy").setup({ {import = "plugins"}, {import = "plugins.lsp"} }, opts)
+require("lazy").setup({ { import = "plugins" }, { import = "plugins.lsp" } })

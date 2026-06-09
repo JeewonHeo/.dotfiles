@@ -11,6 +11,7 @@
 return {
   {
     "nvim-orgmode/orgmode",
+    ft = "org",
     dependencies = {
       { 'nvim-treesitter/nvim-treesitter' }
     },
