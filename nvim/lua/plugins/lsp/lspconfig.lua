@@ -6,9 +6,6 @@ return {
     { "antosha417/nvim-lsp-file-operations", config = true },
   },
   config = function()
-    -- import lspconfig plugin
-    local lspconfig = require("lspconfig")
-
     -- import cmp-nvim-lsp plugin
     local cmp_nvim_lsp = require("cmp_nvim_lsp")
 
@@ -59,44 +56,21 @@ return {
       keymap.set("n", "<leader>rs", ":LspRestart<CR>", opts) -- mapping to restart lsp if necessary
     end
 
-    -- used to enable autocompletion (assign to every lsp server config)
-    local capabilities = cmp_nvim_lsp.default_capabilities()
+    -- Global configuration for all servers
+    vim.lsp.config("*", {
+      capabilities = cmp_nvim_lsp.default_capabilities(),
+      on_attach = on_attach,
+    })
 
     -- Change the Diagnostic symbols in the sign column (gutter)
-    -- (not in youtube nvim video)
     local signs = { Error = " ", Warn = " ", Hint = "󰠠 ", Info = " " }
     for type, icon in pairs(signs) do
       local hl = "DiagnosticSign" .. type
       vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = "" })
     end
 
-    -- configure html server
-    lspconfig["html"].setup({
-      capabilities = capabilities,
-      on_attach = on_attach,
-    })
-
-    -- configure typescript server with plugin
-    lspconfig["ts_ls"].setup({
-      capabilities = capabilities,
-      on_attach = on_attach,
-    })
-
-    -- configure css server
-    lspconfig["cssls"].setup({
-      capabilities = capabilities,
-      on_attach = on_attach,
-    })
-
-    -- configure tailwindcss server
-    lspconfig["tailwindcss"].setup({
-      capabilities = capabilities,
-      on_attach = on_attach,
-    })
-
-    -- configure svelte server
-    lspconfig["svelte"].setup({
-      capabilities = capabilities,
+    -- Server-specific configurations
+    vim.lsp.config("svelte", {
       on_attach = function(client, bufnr)
         on_attach(client, bufnr)
 
@@ -111,81 +85,62 @@ return {
       end,
     })
 
-    -- configure prisma orm server
-    lspconfig["prismals"].setup({
-      capabilities = capabilities,
-      on_attach = on_attach,
-    })
-
-    -- configure graphql language server
-    lspconfig["graphql"].setup({
-      capabilities = capabilities,
-      on_attach = on_attach,
+    vim.lsp.config("graphql", {
       filetypes = { "graphql", "gql", "svelte", "typescriptreact", "javascriptreact" },
     })
 
-    -- configure emmet language server
-    lspconfig["emmet_ls"].setup({
-      capabilities = capabilities,
-      on_attach = on_attach,
+    vim.lsp.config("emmet_ls", {
       filetypes = { "html", "typescriptreact", "javascriptreact", "css", "sass", "scss", "less", "svelte" },
     })
 
-    -- configure python server
-    lspconfig["pyright"].setup({
-      capabilities = capabilities,
-      on_attach = on_attach,
-			settings = {
-				pyright = {autoImportCompletion = true,},
-				python = {
-					analysis = {
-						autoSearchPaths = true,
-						diagnosticMode = 'openFilesOnly',
-						useLibraryCodeForTypes = true,
-						typeCheckingMode = 'off'
-					}
-				}
-			}
-    })
-
-    -- configure lua server (with special settings)
-    lspconfig["lua_ls"].setup({
-      capabilities = capabilities,
-      on_attach = on_attach,
-      settings = { -- custom settings for lua
-        Lua = {
-          -- make the language server recognize "vim" global
-          diagnostics = {
-            globals = { "vim" },
-          },
-          workspace = {
-            -- make language server aware of runtime files
-            library = {
-              [vim.fn.expand("$VIMRUNTIME/lua")] = true,
-              [vim.fn.stdpath("config") .. "/lua"] = true,
-            },
+    vim.lsp.config("pyright", {
+      settings = {
+        pyright = { autoImportCompletion = true },
+        python = {
+          analysis = {
+            autoSearchPaths = true,
+            diagnosticMode = "openFilesOnly",
+            useLibraryCodeForTypes = true,
+            typeCheckingMode = "off",
           },
         },
       },
     })
-		require('lspconfig').lua_ls.setup({
-    settings = {
-      Lua = {
-        workspace = {
-          checkThirdParty = false,
-          library = {
-            vim.env.VIMRUNTIME,
-            "${3rd}/luv/library",
-            "${3rd}/busted/library",
-            -- 여기에 너가 사용 중인 루트 경로들만 넣어
-            "/users/jheo/.config/nvim",
+
+    vim.lsp.config("lua_ls", {
+      settings = {
+        Lua = {
+          diagnostics = {
+            globals = { "vim" },
           },
-          maxPreload = 1000,
-          preloadFileSize = 500,
+          workspace = {
+            checkThirdParty = false,
+            library = {
+              vim.fn.expand("$VIMRUNTIME/lua"),
+              vim.fn.stdpath("config") .. "/lua",
+              "${3rd}/luv/library",
+              "${3rd}/busted/library",
+            },
+            maxPreload = 1000,
+            preloadFileSize = 500,
+          },
+          telemetry = { enable = false },
         },
-        telemetry = { enable = false },
-      }
-    }
-}  )
+      },
+    })
+
+    -- Enable all configured servers
+    vim.lsp.enable({
+      "html",
+      "ts_ls",
+      "cssls",
+      "tailwindcss",
+      "svelte",
+      "prismals",
+      "graphql",
+      "emmet_ls",
+      "pyright",
+      "lua_ls",
+    })
   end,
 }

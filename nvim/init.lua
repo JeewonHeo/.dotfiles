@@ -19,7 +19,6 @@ opt.shiftwidth = 2 -- Size of an indent
 opt.tabstop = 2
 opt.softtabstop = 2
 opt.number = true -- Print line number
--- opt.relativenumber = true
 opt.termguicolors = true -- True color support
 opt.sidescrolloff = 8 -- Columns of context
 opt.signcolumn = "yes" -- Always show the signcolumn, otherwise it would shift the text each time
