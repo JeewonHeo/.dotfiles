@@ -20,8 +20,10 @@ ln -s ~/.dotfiles/zsh/.zshrc ~/.zshrc
 ```zsh 
 mkdir ~/.local/bin
 cd ~/.local/bin 
-curl -LO https://github.com/neovim/neovim/releases/latest/download/nvim.appimage
-chmod u+x nvim.appimage
+curl -LO https://github.com/neovim/neovim/releases/download/v0.12.3/nvim-linux-x86_64.appimage
+mv nvim-linux-x86_64.appimage
+chmod u+x nvim-linux-x86_64.appimage
+mv -f nvim-linux-x86_64.appimage $HOME/.local/bin/
 cd - 
 ```
 
