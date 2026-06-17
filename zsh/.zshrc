@@ -1,4 +1,3 @@
-# echo "exporting /etc/zshrc"
 if [ -f /etc/zshrc ]; then
 	. /etc/zshrc
 fi
@@ -48,7 +47,7 @@ alias w1='watch -n1'
 alias condor_q='condor_q -global -all'
 alias cq='condor_q -global -all'
 # appimage
-alias vi='nvim.appimage'
+alias vi='nvim-linux-x86_64.appimage'
 alias tmux='tmux.appimage'
 
 set -o vi
